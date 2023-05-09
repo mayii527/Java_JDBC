@@ -1,23 +1,26 @@
 package org.example;
 
+import org.example.util.ConexionBaseDatos;
+
 import java.sql.*;
 
 public class EjemploJdbc {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/jaca_curso?serverTimezone=GMT-5";
-        String username = "root";
-        String password = "sasa";
+        try (//Autoclose
+             Connection conn = ConexionBaseDatos.getInstance();
+             Statement stmt = conn.createStatement();
+             ResultSet result = stmt.executeQuery("SELECT * FROM productos")) {
 
-        try {
-            Connection conn = DriverManager.getConnection(url,username,password);
-            Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM productos");
-            while (result.next()){
-                System.out.println(result.getString("nombre"));
+            while (result.next()) {
+                System.out.print(result.getInt("id"));
+                System.out.print(" | ");
+                System.out.print(result.getString("nombre"));
+                System.out.print(" | ");
+                System.out.print(result.getInt("precio"));
+                System.out.print(" | ");
+                System.out.println(result.getDate("fecha_registro"));
             }
-            result.close();
-            stmt.close();
-            conn.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
