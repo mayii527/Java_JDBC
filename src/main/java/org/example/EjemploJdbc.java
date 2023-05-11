@@ -1,25 +1,18 @@
 package org.example;
 
+import org.example.Repositorio.ProductoRepositorioImpl;
+import org.example.Repositorio.Repositorio;
+import org.example.modelo.Producto;
 import org.example.util.ConexionBaseDatos;
 
 import java.sql.*;
 
 public class EjemploJdbc {
     public static void main(String[] args) {
-        try (//Autoclose
-             Connection conn = ConexionBaseDatos.getInstance();
-             Statement stmt = conn.createStatement();
-             ResultSet result = stmt.executeQuery("SELECT * FROM productos")) {
+        try (/*Autoclose*/Connection conn = ConexionBaseDatos.getInstance()) {
 
-            while (result.next()) {
-                System.out.print(result.getInt("id"));
-                System.out.print(" | ");
-                System.out.print(result.getString("nombre"));
-                System.out.print(" | ");
-                System.out.print(result.getInt("precio"));
-                System.out.print(" | ");
-                System.out.println(result.getDate("fecha_registro"));
-            }
+            Repositorio<Producto> repositorio = new ProductoRepositorioImpl();
+            repositorio.listar().forEach(p -> System.out.println(p.getNombre()));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
