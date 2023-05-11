@@ -12,8 +12,8 @@ public class EjemploJdbc {
         try (/*Autoclose*/Connection conn = ConexionBaseDatos.getInstance()) {
 
             Repositorio<Producto> repositorio = new ProductoRepositorioImpl();
-            repositorio.listar().forEach(p -> System.out.println(p.getNombre()));
-
+            repositorio.listar().forEach(System.out::println);
+            System.out.println(repositorio.porId(3L));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

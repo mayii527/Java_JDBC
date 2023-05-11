@@ -3,7 +3,7 @@ package org.example.modelo;
 import java.util.Date;
 
 public class Producto {
-    private long id;
+    private Long id;
     private String nombre;
     private Integer precio;
     private Date fechaRegistro;
@@ -11,18 +11,18 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(long id, String nombre, Integer precio, Date fechaRegistro) {
+    public Producto(Long id, String nombre, Integer precio, Date fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.fechaRegistro = fechaRegistro;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,11 +42,22 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Date getFechaRegistro(java.sql.Date fechaRegistro) {
-        return this.fechaRegistro;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    @Override
+    public String toString() {
+        return  id +
+                " | " +
+                nombre +
+                " | " +
+                precio +
+                " | " +
+                fechaRegistro;
     }
 }
